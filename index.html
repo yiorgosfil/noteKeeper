@@ -20,8 +20,8 @@
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@24,400,0,0" />
 
   <link rel='stylesheet' href='./src/css/styles.css'>
-
   <script type='module' src='./src/js/app.js'></script>
+  <script src="http://localhost:8080/src/js/app.js"></script>
 </head>
 
 <body>
@@ -91,7 +91,7 @@
         <div class='state-layer'></div>
       </button>
     </div>
-    <h2 class='title ttext-title-medium' data-note-panel-title>My Notebook</h2>
+    <h2 class='title text-title-medium' data-note-panel-title>My Notebook</h2>
 
     <div class='note-list' data-note-panel>
       <div class='card'>
@@ -147,6 +147,12 @@
           <div class='state-layer'></div>
         </button>
       </div>
+    </div>
+    <span class='tooltip text-body-small'>Tooltip text</span>
+
+    <div class='empty-notes'>
+      <span class='material-symbols-rounded' aria-hidden='true'>note_stack</span>
+      <div class='text-headline-small'>No notes</div>
     </div>
   </main>
 </body>
