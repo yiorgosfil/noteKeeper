@@ -13,4 +13,17 @@ const getGreetingMsg = function (currentHour) {
   return `Good ${greeting}`
 }
 
-export { addEventOnElements, getGreetingMsg }
+let $lastActiveItem
+const activeNotebook = function () {
+  $lastActiveItem?.classList.remove('active')
+  this.classList.add('active') // this: $navItem
+  $lastActiveItem = this
+}
+
+// Make an element editable by adding the 'contenteditable' attribute
+const makeElemEditable = function ($element) {
+  $element.setAttribute('contenteditable', true)
+  $element.focus()
+}
+
+export { addEventOnElements, getGreetingMsg, activeNotebook, makeElemEditable}

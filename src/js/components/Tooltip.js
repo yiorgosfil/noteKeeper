@@ -20,4 +20,6 @@ export const Tooltip = function ($element) {
     $tooltip.style.tranform = 'translate(-50%, 0)'
     document.body.appendChild($tooltip)
   })
+
+  $element.addEventListener('mouseleave', $tooltip.remove.bind($tooltip))
 }
