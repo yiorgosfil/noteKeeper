@@ -26,4 +26,14 @@ const makeElemEditable = function ($element) {
   $element.focus()
 }
 
-export { addEventOnElements, getGreetingMsg, activeNotebook, makeElemEditable}
+const generateID = function () {
+  return new Date().getItem().toString()
+}
+
+export { 
+  addEventOnElements, 
+  getGreetingMsg, 
+  activeNotebook, 
+  makeElemEditable,
+  generateID
+}

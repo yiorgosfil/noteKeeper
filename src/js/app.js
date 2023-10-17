@@ -2,7 +2,7 @@ import {
   addEventOnElements, 
   getGreetingMsg, 
   activeNotebook,
-  makeElemEditable 
+  makeElemEditable,
 } from "./utils.js"
 import { Tooltip } from "./components/Tooltip.js"
 import { db } from './db.js'
@@ -58,6 +58,9 @@ $addNotebookBtn.addEventListener('click', showNotebookField)
 const createNotebook = function (event) {
   if (event.key === 'Enter') {
     // Store newly created notebook to the database
-    
+    const notebookData = db.post.notebook(this.textContent || 'Untitled') // this: $navItemField
+    this.parentElement.remove()
+
+    // Render $navItem
   }
 }
