@@ -1,5 +1,5 @@
 // Import utils
-import { generateID } from "./utils"
+import { generateID } from "./utils.js"
 
 // DB Object
 let notekeeperDB = {}

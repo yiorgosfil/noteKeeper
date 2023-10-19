@@ -1,10 +1,10 @@
 'use strict'
 
-import { Tooltip } from "./Tooltip"
-import { activeNotebook, makeElemEditable } from "../utils"
-import { DeleteConfirmModal } from "./Modal"
-import { client } from "../client"
-import { db } from "../db"
+import { Tooltip } from "./Tooltip.js"
+import { activeNotebook, makeElemEditable } from "../utils.js"
+import { DeleteConfirmModal } from "./Modal.js"
+import { client } from "../client.js"
+import { db } from "../db.js"
 
 const $notePanelTitle = document.querySelector('[data-note-panel-title]')
 
@@ -30,4 +30,52 @@ export const NanItem = function (id, name) {
     </button>
     <div class='state-layer'></div>
   `
+
+  // Show tooltip on edit and delete button
+  const $tooltipElems = $navItem.querySelectorAll('[data-tooltip]')
+  $tooltipElems.forEach($elem => Tooltip($elem))
+
+  // Click event handler on the navigation item. Updates note's panel title, 
+  // retrieves associated notes, marks them as active
+  $navItem.addEventListener('click', () => {
+    $notePanelTitle.textContent = name
+    activeNotebook.call(this)
+
+    const noteList = db.get.note(this.dataset.notebook)
+    client.note.read(noteList)
+  })
+
+  // Edit notebook functionality
+  const $navItemEditBtn = $navItem.querySelector('[data-edit-btn]')
+  const $navItemField = $navItem.querySelector('[data-notebook-field]')
+
+  $navItemEditBtn.addEventListener('click', makeElemEditable.bind(null, $navItemField))
+
+  $navItemField.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+      this.removeAttribute('contenteditable')
+
+      // Update edited data in DB
+      const updateNotebookData = db.update.notebook(id, this.textContent)
+
+      // Render updated notebook
+      client.notebook.update(id, updateNotebookData)
+    }
+  })
+
+  // Notebook delete functionality
+  const $navItemDeleteBtn = $navItem.querySelector('[data-delete-btn]')
+  $navItemDeleteBtn.addEventListener('click', () => {
+    const modal = DeleteConfirmModal(name)
+    modal.open()
+
+    modal.onSubmit((isConfirm) => {
+      if (isConfirm) {
+        db.delete.notebook(id)
+        client.notebook.delete(id)
+      }
+      modal.close()
+    })
+  })
+  return $navItem
 }
