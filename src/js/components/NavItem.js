@@ -13,7 +13,7 @@ const $notePanelTitle = document.querySelector('[data-note-panel-title]')
 // @param {String} id - The unique identifier of the notebook
 // @param {String} name - Notebook's name
 // @returns {HTMLElement} - Element representing the navigation item of the notebook
-export const NanItem = function (id, name) {
+export const NavItem = (id, name) => {
   const $navItem = document.createElement('div')
   $navItem.classList.add('nav-item')
   $navItem.setAttribute('data-notebook', id)
@@ -79,3 +79,4 @@ export const NanItem = function (id, name) {
   })
   return $navItem
 }
+ 

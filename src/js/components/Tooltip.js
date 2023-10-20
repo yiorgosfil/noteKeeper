@@ -14,7 +14,7 @@ export const Tooltip = ($element) => {
       left,
       height,
       width
-    } = this.getBoundingClientRect()
+    } = event.target.getBoundingClientRect()
 
     $tooltip.style.top = top + height + 4 +'px'
     $tooltip.style.left = left + (width / 2) + 'px'
