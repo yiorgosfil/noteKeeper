@@ -19,13 +19,13 @@ export const NavItem = (id, name) => {
   $navItem.setAttribute('data-notebook', id)
 
   $navItem.innerHTML = `
-    <span class='text text-label-large' data-notebook-field>My Notebook</span>
+    <span class='text text-label-large' data-notebook-field>${name}</span>
     <button class='icon-btn small' aria-label='Edit notebook' data-tooltip='Edit notebook' data-edit-btn>
-      <span class='material-symbols-rounded' aria-hidden='true'>Edit</span>
+      <span class='material-symbols-rounded' aria-hidden='true'>edit</span>
       <div class='state-layer'></div>
     </button>
     <button class='icon-btn small' aria-label='Delete notebook' data-tooltip='Delete notebook' data-delete-btn>
-      <span class='material-symbols-rounded' aria-hidden='true'>Delete</span>
+      <span class='material-symbols-rounded' aria-hidden='true'>delete</span>
       <div class='state-layer'></div>
     </button>
     <div class='state-layer'></div>
@@ -56,10 +56,10 @@ export const NavItem = (id, name) => {
       this.removeAttribute('contenteditable')
 
       // Update edited data in DB
-      const updateNotebookData = db.update.notebook(id, this.textContent)
+      const updatedNotebookData = db.update.notebook(id, this.textContent)
 
       // Render updated notebook
-      client.notebook.update(id, updateNotebookData)
+      client.notebook.update(id, updatedNotebookData)
     }
   })
 

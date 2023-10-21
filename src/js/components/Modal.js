@@ -54,7 +54,7 @@ const NoteModal = (title='Untitled', text='Add your note...', time='') => {
     document.body.removeChild($overlay)
   }
 
-  // Attach a click event to closeBtn (click calles the close modal  function)
+  // Attach a click event to closeBtn (click calles the close modal function)
   const $closeBtn = $modal.querySelector('[data-close-btn]')
   $closeBtn.addEventListener('click', close)
 
@@ -80,14 +80,14 @@ const DeleteConfirmModal = (title) => {
 
   $modal.innerHTML = `
     <h3 class='modal-title text-title-medium'>
-      Are you sure you want to delete <strong>"Note title"</strong>?
+      Are you sure you want to delete <strong>${title}</strong>?
     </h3>
     <div class='modal-footer'>
-      <button class='btn text'>
+      <button class='btn text' data-action-btn='false'>
         <span class='text-label-large'>Cancel</span>
         <div class='state-layer'></div>
       </button>
-      <button class='btn fill'>
+      <button class='btn fill' data-action-btn='true'>
         <span class='text-label-large'>Delete</span>
         <div class='state-layer'></div>
       </button>

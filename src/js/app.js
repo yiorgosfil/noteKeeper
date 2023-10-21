@@ -1,5 +1,3 @@
-'use strict'
-
 import { 
   addEventOnElements, 
   getGreetingMsg, 
@@ -22,15 +20,15 @@ addEventOnElements($sidebarTogglers, 'click', () => {
 })
 
 // Initialize tooltip behavior for every element with 'data-tooltip' attribute
-const $tooltipElements = document.querySelectorAll('[data-tooltip]')
-$tooltipElements.forEach($elem => Tooltip($elem))
+const $tooltipElems = document.querySelectorAll('[data-tooltip]')
+$tooltipElems.forEach($elem => Tooltip($elem))
 
 // Show greeting msg on homepage
 const $greetElem = document.querySelector('[data-greeting]')
 const currentHour = new Date().getHours()
 $greetElem.textContent = getGreetingMsg(currentHour)
 
-// SHow current date on homepage
+// Show current date on homepage
 const $currentDateElem = document.querySelector('[data-current-date]')
 $currentDateElem.textContent = new Date().toDateString().replace(' ', ', ')
 
@@ -80,7 +78,7 @@ const renderExistedNotebook = () => {
 renderExistedNotebook()
 
 // Create new note
-const $noteCreateBtns = document.querySelector('[data-note-create-btn]')
+const $noteCreateBtns = document.querySelectorAll('[data-note-create-btn]')
 addEventOnElements($noteCreateBtns, 'click', () => {
   // Create and open the modal
   const modal = NoteModal()

@@ -12,7 +12,7 @@ import { db } from '../db.js'
 export const Card = (noteData) => {
   const { id, title, text, postedOn, notebookId } = noteData
 
-  const $card = ducument.createElement('div')
+  const $card = document.createElement('div')
   $card.classList.add('card')
   $card.setAttribute('data-note', id)
 

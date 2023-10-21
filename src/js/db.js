@@ -11,7 +11,7 @@ import {
 let notekeeperDB = {}
 
 // Initialize a local DB
-const initDB = function () {
+const initDB = () => {
   const db = localStorage.getItem('notekeeperDB')
 
   if (db) {
@@ -21,7 +21,6 @@ const initDB = function () {
     localStorage.setItem('notekeeperDB', JSON.stringify(notekeeperDB))
   }
 }
-
 initDB()
 
 // Reads and loads the data from localStorage into the global variable 'notekeeperDB'

@@ -1,11 +1,5 @@
-'use strict'
-
 const addEventOnElements = ($elements, eventType, callback) => {
-  if (Array.isArray($elements)) {
-    $elements.forEach($element => $element.addEventListener(eventType, callback))
-  } else {
-    Array.from($elements).forEach($element => $element.addEventListener(eventType, callback))
-  }
+  $elements.forEach($element => $element.addEventListener(eventType, callback))
 }
 
 // Generates a greeting message based on the hour
@@ -21,13 +15,13 @@ const getGreetingMsg = (currentHour) => {
 }
 
 // Activates a navigation item and deactivates the previous active item
-let $lastActiveItem
+let $lastActiveNavItem
 const activeNotebook = ($navItem) => {
-  if ($lastActiveItem) {
-    $lastActiveItem?.classList.remove('active')
+  if ($lastActiveNavItem) {
+    $lastActiveNavItem?.classList.remove('active')
   }
-  $navItem.classList.add('active') 
-  $lastActiveItem = $navItem
+  this.classList.add('active') // this: $navItem
+  $lastActiveNavItem = $navItem
 }
 
 // Makes an element editable by adding the 'contenteditable' attribute
@@ -38,7 +32,7 @@ const makeElemEditable = ($element) => {
 
 // Generates a unique ID based on the timestamp
 const generateID = () => {
-  return new Date().getItem().toString()
+  return new Date().getTime().toString()
 }
 
 // Finds a notebook in the DB by its ID
@@ -54,7 +48,7 @@ const findNotebookIndex = (db, notebookId) => {
 // Converts a timestamp from ms to human-readable
 const getRelativeTime = (ms) => {
   const currentTime = new Date().getTime()
-  const minute = Math.floor((currentTime - ms) / 1000 /60)
+  const minute = Math.floor((currentTime - ms) / 1000 / 60)
   const hour = Math.floor(minute / 60)
   const day = Math.floor(hour / 24)
 

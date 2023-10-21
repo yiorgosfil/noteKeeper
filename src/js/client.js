@@ -115,7 +115,7 @@ export const client = {
     // @param {String} noteId - ID of the note to delete
     // @param {boolean} isNoteExists - Indicates whether other notes still exist
     delete(noteId, isNoteExists) {
-      document.querySelector(`[data-note'${noteId}']`).remove()
+      document.querySelector(`[data-note='${noteId}']`).remove()
       if (!isNoteExists) $notePanel.innerHTML = emptyNotesTemplate
     }
   }
