@@ -1,63 +1,69 @@
-'use strict'
+'use strict';
 
-import { Tooltip } from './Tooltip.js'
-import { NoteModal, DeleteConfirmModal } from './Modal.js'
-import { getRelativeTime } from '../utils.js'
-import { client } from '../client.js'
-import { db } from '../db.js'
+import { Tooltip } from "./Tooltip.js";
+import { getRelativeTime } from "../utils.js";
+import { DeleteConfirmModal, NoteModal } from "./Modal.js";
+import { db } from "../db.js";
+import { client } from "../client.js";
 
-// Function that creates an HTML card element
-// @param {Object} noteData - Data representing the note to be dislpayed on the card
-// @returns {HTMLElement} - The generated card element
-export const Card = (noteData) => {
-  const { id, title, text, postedOn, notebookId } = noteData
 
-  const $card = document.createElement('div')
-  $card.classList.add('card')
-  $card.setAttribute('data-note', id)
+export const Card = function (noteData) {
+
+  const { id, title, text, postedOn, notebookId } = noteData;
+
+  const $card = document.createElement('div');
+  $card.classList.add('card');
+  $card.setAttribute('data-note', id);
 
   $card.innerHTML = `
-    <h3 class='card-title text-title-medium'>${title}</h3>
-    <p class='card-text text-body-large'>${text}</p>
-    <div class='wrapper'>
-      <span class='card-time text-label-large'>${getRelativeTime(postedOn)}</span>
-      <button class='icon-btn large' aria-label='Delete note' data-tooltip='Delete note' data-delete-btn>
-        <span class='material-symbols-rounded' aria-hidden='true'>delete</span>
-        <div class='state-layer'></div>
+    <h3 class="card-title text-title-medium">${title}</h3>
+
+    <p class="card-text text-body-large">${text}</p>
+
+    <div class="wrapper">
+      <span class="card-time text-label-large">${getRelativeTime(postedOn)}</span>
+
+      <button class="icon-btn large" aria-label="Delete note" data-tooltip="Delete note" data-delete-btn>
+        <span class="material-symbols-rounded" aria-hidden="true">delete</span>
+
+        <div class="state-layer"></div>
       </button>
     </div>
-    <div class='state-layer'></div>
-  `
 
-  Tooltip($card.querySelector('[data-tooltip]'))
+    <div class="state-layer"></div>
+  `;
+  Tooltip($card.querySelector('[data-tooltip]'));
 
-  // Note detail view and edit functionality
-  $card.addEventListener('click', () => {
-    const modal = NoteModal(title, text, getRelativeTime(postedOn))
-    modal.open()
+  $card.addEventListener('click', function () {
+    const modal = NoteModal(title, text, getRelativeTime(postedOn));
+    modal.open();
 
-    modal.onSubmit((noteData) => {
-      const updatedData = db.update.note(id, noteData)
+    modal.onSubmit(function (noteData) {
+      const updatedData = db.update.note(id, noteData);
 
-      client.note.update(id, updatedData)
-      modal.close()
-    })
-  })
+      // Update the note in the client UI
+      client.note.update(id, updatedData);
+      modal.close();
+    });
+  });
 
-  // Note delete functionality
-  const $deleteBtn = $card.querySelector('[data-delete-btn]')
-  $deleteBtn.addEventListener('click', (event) => {
-    event.stopImmediatePropagation()
-    const modal = DeleteConfirmModal(title)
-    modal.open()
+  const $deleteBtn = $card.querySelector('[data-delete-btn]');
+  $deleteBtn.addEventListener('click', function (event) {
+    event.stopImmediatePropagation();
 
-    modal.onSubmit((isConfirm) => {
+    const modal = DeleteConfirmModal(title);
+
+    modal.open();
+
+    modal.onSubmit(function (isConfirm) {
       if (isConfirm) {
-        const existedNotes = db.delete.note(notebookId, id)
-        client.note.delete(id, existedNotes.length)
+        const existedNotes = db.delete.note(notebookId, id);
+
+        // Update the client ui to reflect note deletion
+        client.note.delete(id, existedNotes.length);
       }
-      modal.close()
-    })
-  })
-  return $card
+      modal.close();
+    });
+  });
+  return $card;
 }

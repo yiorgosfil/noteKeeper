@@ -1,26 +1,23 @@
-'use strict'
+'use strict';
 
-// Attaches a tooltip to a given DOM element.
-// When the element is hovered, the specified tooltip content is dislpayed.
-// @param $element - The DOM element to which the tooltip behavior is added.
-export const Tooltip = ($element) => {
-  const $tooltip = document.createElement('span')
-  $tooltip.classList.add('tooltip', 'text-body-small')  
-  $element.addEventListener('mouseenter', (event) => { 
-    $tooltip.textContent = event.target.dataset.tooltip
+export const Tooltip = function ($element) {
+  const $tooltip = document.createElement('span');
+  $tooltip.classList.add('tooltip', 'text-body-small');
+
+  $element.addEventListener('mouseenter', function () {
+    $tooltip.textContent = this.dataset.tooltip;
 
     const {
       top,
       left,
       height,
       width
-    } = event.target.getBoundingClientRect()
+    } = this.getBoundingClientRect();
 
-    $tooltip.style.top = top + height + 4 +'px'
-    $tooltip.style.left = left + (width / 2) + 'px'
-    $tooltip.style.transform = 'translate(-50%, 0)'
-    document.body.appendChild($tooltip)
-  })
-
-  $element.addEventListener('mouseleave', $tooltip.remove.bind($tooltip))
+    $tooltip.style.top = top + height + 4 + 'px';
+    $tooltip.style.left = left + (width / 2) + 'px';
+    $tooltip.style.transform = 'translate(-50%, 0)';
+    document.body.appendChild($tooltip);
+  });
+  $element.addEventListener('mouseleave', $tooltip.remove.bind($tooltip));
 }
