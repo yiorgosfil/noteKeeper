@@ -108,3 +108,7 @@ const renderExistedNote = function () {
   }
 }
 renderExistedNote();
+
+const footerYear = document.getElementById('year')
+const year = new Date().getFullYear()
+footerYear.textContent = year

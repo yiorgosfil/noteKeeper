@@ -344,6 +344,9 @@ body {
   line-height: var(--lh-label-large);
   font-weight: var(--fw-medium);
   letter-spacing: var(--ls-p-010);
+
+  display: inline-flex;
+  gap: 0.3em;
 }
 
 .text-label-medium {
@@ -835,4 +838,10 @@ body {
     width: 100%;
     margin-inline: auto;
   }
+}
+
+.copyright {
+  font-size: 2rem;
+  line-height: inherit;
+  vertical-align: baseline;
 }
